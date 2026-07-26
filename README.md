@@ -230,16 +230,6 @@ VS Code 联动和命令面板功能需要安装 VS Code 插件。
 - 独立桌面版需要 Windows x64 的 .NET 8 Desktop Runtime
 - 不需要联网服务或云端账号
 
-## 项目结构
-
-```text
-desktop-wpf/        WPF 桌宠源码
-vscode-extension/   VS Code 扩展源码
-shared/             共享动画与访客资源
-publish/windows/    Windows 发布目录
-publish/vscode/     VSIX 发布目录
-tools/              构建、发布和 smoke test 脚本
-```
 
 ## 下载
 
