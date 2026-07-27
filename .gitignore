@@ -1,1 +1,27 @@
 .baton/
+
+# Build and IDE output
+.vs/
+**/bin/
+**/obj/
+node_modules/
+.venv/
+venv/
+
+# Local and temporary files
+tmp/
+*.log
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Local secrets and machine-specific configuration
+.env
+.env.*
+!.env.example
+appsettings.*.json
+pet-settings.json
+*.secrets.json
+.release-secrets/
+git-cred-*.txt
