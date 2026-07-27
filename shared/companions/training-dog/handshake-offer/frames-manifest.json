@@ -1,0 +1,122 @@
+{
+  "source": "D:\\ai_tools\\codex_workspace\\desk-pet\\source-picture\\second-dog-companion\\second-dog-handshake-offer-reference.png",
+  "cell_size": [
+    192,
+    208
+  ],
+  "chroma_key": [
+    0,
+    255,
+    0
+  ],
+  "threshold": 76,
+  "padding": 10,
+  "grid": [
+    3,
+    2
+  ],
+  "frames": [
+    {
+      "index": 0,
+      "source_slot": [
+        0,
+        0,
+        682,
+        1024
+      ],
+      "content_bounds": [
+        14,
+        10,
+        177,
+        198
+      ],
+      "opaque_pixels": 18292,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\tmp\\second-dog-first-stage-frames\\handshake-offer\\00.png"
+    },
+    {
+      "index": 1,
+      "source_slot": [
+        682,
+        0,
+        1364,
+        1024
+      ],
+      "content_bounds": [
+        15,
+        10,
+        176,
+        198
+      ],
+      "opaque_pixels": 17776,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\tmp\\second-dog-first-stage-frames\\handshake-offer\\01.png"
+    },
+    {
+      "index": 2,
+      "source_slot": [
+        1364,
+        0,
+        2048,
+        1024
+      ],
+      "content_bounds": [
+        21,
+        10,
+        170,
+        198
+      ],
+      "opaque_pixels": 17228,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\tmp\\second-dog-first-stage-frames\\handshake-offer\\02.png"
+    },
+    {
+      "index": 3,
+      "source_slot": [
+        0,
+        1024,
+        682,
+        2048
+      ],
+      "content_bounds": [
+        23,
+        10,
+        169,
+        198
+      ],
+      "opaque_pixels": 15999,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\tmp\\second-dog-first-stage-frames\\handshake-offer\\03.png"
+    },
+    {
+      "index": 4,
+      "source_slot": [
+        682,
+        1024,
+        1364,
+        2048
+      ],
+      "content_bounds": [
+        22,
+        10,
+        169,
+        198
+      ],
+      "opaque_pixels": 17120,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\tmp\\second-dog-first-stage-frames\\handshake-offer\\04.png"
+    },
+    {
+      "index": 5,
+      "source_slot": [
+        1364,
+        1024,
+        2048,
+        2048
+      ],
+      "content_bounds": [
+        22,
+        10,
+        169,
+        198
+      ],
+      "opaque_pixels": 18008,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\tmp\\second-dog-first-stage-frames\\handshake-offer\\05.png"
+    }
+  ]
+}

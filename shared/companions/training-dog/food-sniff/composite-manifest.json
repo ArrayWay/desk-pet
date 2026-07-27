@@ -1,0 +1,12 @@
+{
+  "source_frames": "D:\\ai_tools\\codex_workspace\\desk-pet\\tmp\\training-dog-food-base\\food-sniff",
+  "food_bowl": "D:\\ai_tools\\codex_workspace\\desk-pet\\shared\\companions\\training-dog\\food-bowl.png",
+  "frame_count": 6,
+  "bowl_width": 64,
+  "right": 8,
+  "bottom": 10,
+  "layer_order": [
+    "food-bowl",
+    "dog"
+  ]
+}

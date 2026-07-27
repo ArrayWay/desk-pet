@@ -1,0 +1,30 @@
+<Window x:Class="Fuguang.DesktopPet.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="浮光橙仔"
+        Width="192"
+        Height="208"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        ResizeMode="NoResize"
+        ShowInTaskbar="False"
+        ShowActivated="False"
+        Topmost="True"
+        MouseEnter="Window_MouseEnter"
+        MouseLeave="Window_MouseLeave"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown"
+        MouseLeftButtonUp="Window_MouseLeftButtonUp"
+        MouseMove="Window_MouseMove"
+        MouseDoubleClick="Window_MouseDoubleClick">
+    <Grid Background="Transparent">
+        <Image x:Name="PetImage"
+               Width="192"
+               Height="208"
+               Stretch="None"
+               RenderTransformOrigin="0.5,0.65"
+               SnapsToDevicePixels="True"
+               RenderOptions.BitmapScalingMode="HighQuality"
+               ToolTip="单击挥手，双击跳跃，拖动可移动"/>
+    </Grid>
+</Window>

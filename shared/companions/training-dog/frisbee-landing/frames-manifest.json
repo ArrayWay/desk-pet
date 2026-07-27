@@ -1,0 +1,124 @@
+{
+  "source": "D:\\ai_tools\\codex_workspace\\desk-pet\\source-picture\\second-dog-companion\\second-dog-frisbee-landing-reference.png",
+  "cell_size": [
+    192,
+    208
+  ],
+  "chroma_key": [
+    0,
+    255,
+    0
+  ],
+  "threshold": 76,
+  "padding": 10,
+  "grid": [
+    3,
+    2
+  ],
+  "extraction": "grid-slots",
+  "slot_inset": 12,
+  "frames": [
+    {
+      "index": 0,
+      "source_slot": [
+        0,
+        0,
+        938,
+        768
+      ],
+      "content_bounds": [
+        10,
+        67,
+        182,
+        198
+      ],
+      "opaque_pixels": 12883,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\shared\\companions\\training-dog\\frisbee-landing\\00.png"
+    },
+    {
+      "index": 1,
+      "source_slot": [
+        938,
+        0,
+        1876,
+        768
+      ],
+      "content_bounds": [
+        10,
+        81,
+        182,
+        198
+      ],
+      "opaque_pixels": 13275,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\shared\\companions\\training-dog\\frisbee-landing\\01.png"
+    },
+    {
+      "index": 2,
+      "source_slot": [
+        1876,
+        0,
+        2816,
+        768
+      ],
+      "content_bounds": [
+        10,
+        75,
+        182,
+        198
+      ],
+      "opaque_pixels": 14149,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\shared\\companions\\training-dog\\frisbee-landing\\02.png"
+    },
+    {
+      "index": 3,
+      "source_slot": [
+        0,
+        768,
+        938,
+        1536
+      ],
+      "content_bounds": [
+        10,
+        76,
+        182,
+        198
+      ],
+      "opaque_pixels": 14178,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\shared\\companions\\training-dog\\frisbee-landing\\03.png"
+    },
+    {
+      "index": 4,
+      "source_slot": [
+        938,
+        768,
+        1876,
+        1536
+      ],
+      "content_bounds": [
+        10,
+        64,
+        182,
+        198
+      ],
+      "opaque_pixels": 14811,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\shared\\companions\\training-dog\\frisbee-landing\\04.png"
+    },
+    {
+      "index": 5,
+      "source_slot": [
+        1876,
+        768,
+        2816,
+        1536
+      ],
+      "content_bounds": [
+        10,
+        57,
+        182,
+        198
+      ],
+      "opaque_pixels": 15962,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\shared\\companions\\training-dog\\frisbee-landing\\05.png"
+    }
+  ]
+}

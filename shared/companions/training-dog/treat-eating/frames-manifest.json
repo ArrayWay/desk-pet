@@ -1,0 +1,124 @@
+{
+  "source": "D:\\ai_tools\\codex_workspace\\desk-pet\\source-picture\\second-dog-companion\\second-dog-treat-eating-reference.png",
+  "cell_size": [
+    192,
+    208
+  ],
+  "chroma_key": [
+    0,
+    255,
+    0
+  ],
+  "threshold": 76,
+  "padding": 10,
+  "grid": [
+    3,
+    2
+  ],
+  "extraction": "grid-slots",
+  "slot_inset": 12,
+  "frames": [
+    {
+      "index": 0,
+      "source_slot": [
+        0,
+        0,
+        682,
+        1024
+      ],
+      "content_bounds": [
+        28,
+        10,
+        163,
+        198
+      ],
+      "opaque_pixels": 17760,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\shared\\companions\\training-dog\\treat-eating\\00.png"
+    },
+    {
+      "index": 1,
+      "source_slot": [
+        682,
+        0,
+        1364,
+        1024
+      ],
+      "content_bounds": [
+        32,
+        10,
+        160,
+        198
+      ],
+      "opaque_pixels": 16867,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\shared\\companions\\training-dog\\treat-eating\\01.png"
+    },
+    {
+      "index": 2,
+      "source_slot": [
+        1364,
+        0,
+        2048,
+        1024
+      ],
+      "content_bounds": [
+        39,
+        10,
+        153,
+        198
+      ],
+      "opaque_pixels": 15613,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\shared\\companions\\training-dog\\treat-eating\\02.png"
+    },
+    {
+      "index": 3,
+      "source_slot": [
+        0,
+        1024,
+        682,
+        2048
+      ],
+      "content_bounds": [
+        10,
+        20,
+        182,
+        198
+      ],
+      "opaque_pixels": 19035,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\shared\\companions\\training-dog\\treat-eating\\03.png"
+    },
+    {
+      "index": 4,
+      "source_slot": [
+        682,
+        1024,
+        1364,
+        2048
+      ],
+      "content_bounds": [
+        10,
+        35,
+        182,
+        198
+      ],
+      "opaque_pixels": 19989,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\shared\\companions\\training-dog\\treat-eating\\04.png"
+    },
+    {
+      "index": 5,
+      "source_slot": [
+        1364,
+        1024,
+        2048,
+        2048
+      ],
+      "content_bounds": [
+        10,
+        33,
+        182,
+        198
+      ],
+      "opaque_pixels": 20285,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\shared\\companions\\training-dog\\treat-eating\\05.png"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "source": "D:\\ai_tools\\codex_workspace\\desk-pet\\source-picture\\\u4eba\u72692\\review.png",
+  "cell_size": [
+    192,
+    208
+  ],
+  "background": [
+    254,
+    254,
+    254
+  ],
+  "background_threshold": 28,
+  "rows": [
+    {
+      "state": "review",
+      "frame_count": 6,
+      "method": "stable-slots",
+      "source_band": [
+        0,
+        277,
+        1717,
+        628
+      ],
+      "subject_centers": [
+        151,
+        432,
+        722,
+        925,
+        1015,
+        1277,
+        1557
+      ]
+    }
+  ]
+}

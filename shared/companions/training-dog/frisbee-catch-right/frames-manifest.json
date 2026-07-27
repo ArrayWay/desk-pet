@@ -1,0 +1,124 @@
+{
+  "source": "D:\\ai_tools\\codex_workspace\\desk-pet\\source-picture\\second-dog-companion\\second-dog-frisbee-catch-right-reference.png",
+  "cell_size": [
+    192,
+    208
+  ],
+  "chroma_key": [
+    0,
+    255,
+    0
+  ],
+  "threshold": 76,
+  "padding": 10,
+  "grid": [
+    3,
+    2
+  ],
+  "extraction": "grid-slots",
+  "slot_inset": 12,
+  "frames": [
+    {
+      "index": 0,
+      "source_slot": [
+        0,
+        0,
+        682,
+        1024
+      ],
+      "content_bounds": [
+        34,
+        10,
+        158,
+        198
+      ],
+      "opaque_pixels": 23312,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\shared\\companions\\training-dog\\frisbee-catch-right\\00.png"
+    },
+    {
+      "index": 1,
+      "source_slot": [
+        682,
+        0,
+        1364,
+        1024
+      ],
+      "content_bounds": [
+        34,
+        10,
+        158,
+        198
+      ],
+      "opaque_pixels": 23312,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\shared\\companions\\training-dog\\frisbee-catch-right\\01.png"
+    },
+    {
+      "index": 2,
+      "source_slot": [
+        1364,
+        0,
+        2048,
+        1024
+      ],
+      "content_bounds": [
+        34,
+        10,
+        158,
+        198
+      ],
+      "opaque_pixels": 23312,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\shared\\companions\\training-dog\\frisbee-catch-right\\02.png"
+    },
+    {
+      "index": 3,
+      "source_slot": [
+        0,
+        1024,
+        682,
+        2048
+      ],
+      "content_bounds": [
+        34,
+        10,
+        158,
+        198
+      ],
+      "opaque_pixels": 23312,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\shared\\companions\\training-dog\\frisbee-catch-right\\03.png"
+    },
+    {
+      "index": 4,
+      "source_slot": [
+        682,
+        1024,
+        1364,
+        2048
+      ],
+      "content_bounds": [
+        34,
+        10,
+        158,
+        198
+      ],
+      "opaque_pixels": 23312,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\shared\\companions\\training-dog\\frisbee-catch-right\\04.png"
+    },
+    {
+      "index": 5,
+      "source_slot": [
+        1364,
+        1024,
+        2048,
+        2048
+      ],
+      "content_bounds": [
+        34,
+        10,
+        158,
+        198
+      ],
+      "opaque_pixels": 23312,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\shared\\companions\\training-dog\\frisbee-catch-right\\05.png"
+    }
+  ]
+}

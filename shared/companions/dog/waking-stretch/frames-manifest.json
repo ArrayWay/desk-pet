@@ -1,0 +1,122 @@
+{
+  "source": "D:\\ai_tools\\codex_workspace\\desk-pet\\source-picture\\dog-companion\\dog-waking-stretch-reference.png",
+  "cell_size": [
+    192,
+    208
+  ],
+  "chroma_key": [
+    0,
+    255,
+    0
+  ],
+  "threshold": 76,
+  "padding": 10,
+  "grid": [
+    3,
+    2
+  ],
+  "frames": [
+    {
+      "index": 0,
+      "source_slot": [
+        0,
+        0,
+        682,
+        1024
+      ],
+      "content_bounds": [
+        10,
+        95,
+        182,
+        198
+      ],
+      "opaque_pixels": 14912,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\tmp\\frames-dog-rebuilt\\waking-stretch\\00.png"
+    },
+    {
+      "index": 1,
+      "source_slot": [
+        682,
+        0,
+        1364,
+        1024
+      ],
+      "content_bounds": [
+        10,
+        35,
+        182,
+        198
+      ],
+      "opaque_pixels": 21931,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\tmp\\frames-dog-rebuilt\\waking-stretch\\01.png"
+    },
+    {
+      "index": 2,
+      "source_slot": [
+        1364,
+        0,
+        2048,
+        1024
+      ],
+      "content_bounds": [
+        10,
+        39,
+        182,
+        198
+      ],
+      "opaque_pixels": 18642,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\tmp\\frames-dog-rebuilt\\waking-stretch\\02.png"
+    },
+    {
+      "index": 3,
+      "source_slot": [
+        0,
+        1024,
+        682,
+        2048
+      ],
+      "content_bounds": [
+        10,
+        27,
+        182,
+        198
+      ],
+      "opaque_pixels": 19413,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\tmp\\frames-dog-rebuilt\\waking-stretch\\03.png"
+    },
+    {
+      "index": 4,
+      "source_slot": [
+        682,
+        1024,
+        1364,
+        2048
+      ],
+      "content_bounds": [
+        10,
+        12,
+        182,
+        198
+      ],
+      "opaque_pixels": 24116,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\tmp\\frames-dog-rebuilt\\waking-stretch\\04.png"
+    },
+    {
+      "index": 5,
+      "source_slot": [
+        1364,
+        1024,
+        2048,
+        2048
+      ],
+      "content_bounds": [
+        10,
+        21,
+        182,
+        198
+      ],
+      "opaque_pixels": 23220,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\tmp\\frames-dog-rebuilt\\waking-stretch\\05.png"
+    }
+  ]
+}

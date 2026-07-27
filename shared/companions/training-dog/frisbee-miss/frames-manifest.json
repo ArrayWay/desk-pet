@@ -1,0 +1,124 @@
+{
+  "source": "D:\\ai_tools\\codex_workspace\\desk-pet\\source-picture\\second-dog-companion\\second-dog-frisbee-miss-reference.png",
+  "cell_size": [
+    192,
+    208
+  ],
+  "chroma_key": [
+    0,
+    255,
+    0
+  ],
+  "threshold": 76,
+  "padding": 10,
+  "grid": [
+    3,
+    2
+  ],
+  "extraction": "grid-slots",
+  "slot_inset": 12,
+  "frames": [
+    {
+      "index": 0,
+      "source_slot": [
+        0,
+        0,
+        682,
+        1024
+      ],
+      "content_bounds": [
+        10,
+        31,
+        182,
+        198
+      ],
+      "opaque_pixels": 18270,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\shared\\companions\\training-dog\\frisbee-miss\\00.png"
+    },
+    {
+      "index": 1,
+      "source_slot": [
+        682,
+        0,
+        1364,
+        1024
+      ],
+      "content_bounds": [
+        10,
+        28,
+        182,
+        198
+      ],
+      "opaque_pixels": 19234,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\shared\\companions\\training-dog\\frisbee-miss\\01.png"
+    },
+    {
+      "index": 2,
+      "source_slot": [
+        1364,
+        0,
+        2048,
+        1024
+      ],
+      "content_bounds": [
+        10,
+        38,
+        182,
+        198
+      ],
+      "opaque_pixels": 18844,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\shared\\companions\\training-dog\\frisbee-miss\\02.png"
+    },
+    {
+      "index": 3,
+      "source_slot": [
+        0,
+        1024,
+        682,
+        2048
+      ],
+      "content_bounds": [
+        23,
+        10,
+        168,
+        198
+      ],
+      "opaque_pixels": 18563,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\shared\\companions\\training-dog\\frisbee-miss\\03.png"
+    },
+    {
+      "index": 4,
+      "source_slot": [
+        682,
+        1024,
+        1364,
+        2048
+      ],
+      "content_bounds": [
+        68,
+        10,
+        124,
+        198
+      ],
+      "opaque_pixels": 7230,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\shared\\companions\\training-dog\\frisbee-miss\\04.png"
+    },
+    {
+      "index": 5,
+      "source_slot": [
+        1364,
+        1024,
+        2048,
+        2048
+      ],
+      "content_bounds": [
+        18,
+        10,
+        173,
+        198
+      ],
+      "opaque_pixels": 19485,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\shared\\companions\\training-dog\\frisbee-miss\\05.png"
+    }
+  ]
+}

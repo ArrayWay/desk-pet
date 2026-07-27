@@ -1,0 +1,124 @@
+{
+  "source": "D:\\ai_tools\\codex_workspace\\desk-pet\\source-picture\\second-dog-companion\\second-dog-frisbee-return-left-reference.png",
+  "cell_size": [
+    192,
+    208
+  ],
+  "chroma_key": [
+    0,
+    255,
+    0
+  ],
+  "threshold": 76,
+  "padding": 10,
+  "grid": [
+    3,
+    2
+  ],
+  "extraction": "grid-slots",
+  "slot_inset": 12,
+  "frames": [
+    {
+      "index": 0,
+      "source_slot": [
+        0,
+        0,
+        682,
+        1024
+      ],
+      "content_bounds": [
+        10,
+        47,
+        182,
+        198
+      ],
+      "opaque_pixels": 15317,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\shared\\companions\\training-dog\\frisbee-return-left\\00.png"
+    },
+    {
+      "index": 1,
+      "source_slot": [
+        682,
+        0,
+        1364,
+        1024
+      ],
+      "content_bounds": [
+        10,
+        51,
+        182,
+        198
+      ],
+      "opaque_pixels": 15898,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\shared\\companions\\training-dog\\frisbee-return-left\\01.png"
+    },
+    {
+      "index": 2,
+      "source_slot": [
+        1364,
+        0,
+        2048,
+        1024
+      ],
+      "content_bounds": [
+        10,
+        51,
+        182,
+        198
+      ],
+      "opaque_pixels": 15473,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\shared\\companions\\training-dog\\frisbee-return-left\\02.png"
+    },
+    {
+      "index": 3,
+      "source_slot": [
+        0,
+        1024,
+        682,
+        2048
+      ],
+      "content_bounds": [
+        10,
+        25,
+        182,
+        198
+      ],
+      "opaque_pixels": 19654,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\shared\\companions\\training-dog\\frisbee-return-left\\03.png"
+    },
+    {
+      "index": 4,
+      "source_slot": [
+        682,
+        1024,
+        1364,
+        2048
+      ],
+      "content_bounds": [
+        10,
+        116,
+        182,
+        198
+      ],
+      "opaque_pixels": 10492,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\shared\\companions\\training-dog\\frisbee-return-left\\04.png"
+    },
+    {
+      "index": 5,
+      "source_slot": [
+        1364,
+        1024,
+        2048,
+        2048
+      ],
+      "content_bounds": [
+        10,
+        28,
+        182,
+        198
+      ],
+      "opaque_pixels": 18700,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\shared\\companions\\training-dog\\frisbee-return-left\\05.png"
+    }
+  ]
+}

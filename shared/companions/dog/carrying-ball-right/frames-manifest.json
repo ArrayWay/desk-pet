@@ -1,0 +1,122 @@
+{
+  "source": "D:\\ai_tools\\codex_workspace\\desk-pet\\source-picture\\dog-companion\\dog-carrying-ball-right-reference.png",
+  "cell_size": [
+    192,
+    208
+  ],
+  "chroma_key": [
+    0,
+    255,
+    0
+  ],
+  "threshold": 76,
+  "padding": 10,
+  "grid": [
+    3,
+    2
+  ],
+  "frames": [
+    {
+      "index": 0,
+      "source_slot": [
+        0,
+        0,
+        682,
+        1024
+      ],
+      "content_bounds": [
+        10,
+        57,
+        182,
+        198
+      ],
+      "opaque_pixels": 15678,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\tmp\\frames-dog-rebuilt\\carrying-ball-right\\00.png"
+    },
+    {
+      "index": 1,
+      "source_slot": [
+        682,
+        0,
+        1364,
+        1024
+      ],
+      "content_bounds": [
+        60,
+        10,
+        131,
+        198
+      ],
+      "opaque_pixels": 9509,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\tmp\\frames-dog-rebuilt\\carrying-ball-right\\01.png"
+    },
+    {
+      "index": 2,
+      "source_slot": [
+        1364,
+        0,
+        2048,
+        1024
+      ],
+      "content_bounds": [
+        10,
+        29,
+        182,
+        198
+      ],
+      "opaque_pixels": 21244,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\tmp\\frames-dog-rebuilt\\carrying-ball-right\\02.png"
+    },
+    {
+      "index": 3,
+      "source_slot": [
+        0,
+        1024,
+        682,
+        2048
+      ],
+      "content_bounds": [
+        10,
+        28,
+        182,
+        198
+      ],
+      "opaque_pixels": 20969,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\tmp\\frames-dog-rebuilt\\carrying-ball-right\\03.png"
+    },
+    {
+      "index": 4,
+      "source_slot": [
+        682,
+        1024,
+        1364,
+        2048
+      ],
+      "content_bounds": [
+        59,
+        10,
+        132,
+        198
+      ],
+      "opaque_pixels": 10644,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\tmp\\frames-dog-rebuilt\\carrying-ball-right\\04.png"
+    },
+    {
+      "index": 5,
+      "source_slot": [
+        1364,
+        1024,
+        2048,
+        2048
+      ],
+      "content_bounds": [
+        10,
+        43,
+        182,
+        198
+      ],
+      "opaque_pixels": 19032,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\tmp\\frames-dog-rebuilt\\carrying-ball-right\\05.png"
+    }
+  ]
+}

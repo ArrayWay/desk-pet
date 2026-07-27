@@ -1,0 +1,36 @@
+{
+  "source": "D:\\ai_tools\\codex_workspace\\desk-pet\\source-picture\\\u4eba\u72692\\failed.png",
+  "cell_size": [
+    192,
+    208
+  ],
+  "background": [
+    254,
+    254,
+    254
+  ],
+  "background_threshold": 28,
+  "rows": [
+    {
+      "state": "failed",
+      "frame_count": 8,
+      "method": "components",
+      "source_band": [
+        0,
+        284,
+        1717,
+        637
+      ],
+      "subject_centers": [
+        141,
+        363,
+        561,
+        788,
+        1014,
+        1217,
+        1418,
+        1609
+      ]
+    }
+  ]
+}

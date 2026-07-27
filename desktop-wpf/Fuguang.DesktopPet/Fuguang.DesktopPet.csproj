@@ -1,0 +1,54 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>Fuguang.DesktopPet</AssemblyName>
+    <RootNamespace>Fuguang.DesktopPet</RootNamespace>
+    <Version>1.2.1</Version>
+    <AssemblyVersion>1.2.1.0</AssemblyVersion>
+    <FileVersion>1.2.1.0</FileVersion>
+    <ApplicationIcon>..\..\source-picture\ico\deskpet.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="..\..\shared\pet-animation.json" Link="Assets\pet-animation.json" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="..\..\shared\spritesheet.webp" Link="Assets\spritesheet.webp" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="..\..\shared\spritesheet.png" Link="Assets\spritesheet.png" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="..\..\shared\skins\**\*" Link="Assets\Skins\%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="..\..\source-picture\ico\deskpet.ico" Link="Assets\deskpet.ico" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="..\..\shared\companions\**\*" Link="Assets\Companions\%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <!-- Keep launch folders in sync after every build so local entry points
+       (publish/windows/* and vscode-extension/desktop) never stay on a stale DLL. -->
+  <PropertyGroup>
+    <RepoRoot>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\..'))</RepoRoot>
+    <SyncLaunchDirectories Condition="'$(SyncLaunchDirectories)' == ''">true</SyncLaunchDirectories>
+  </PropertyGroup>
+  <Target Name="SyncLaunchDirectories" AfterTargets="Build" Condition="'$(SyncLaunchDirectories)' == 'true' And '$(DesignTimeBuild)' != 'true'">
+    <PropertyGroup>
+      <_ConfigName>$([System.String]::Copy('$(Configuration)').ToLowerInvariant())</_ConfigName>
+      <_WindowsPublishDir>$([System.IO.Path]::GetFullPath('$(RepoRoot)\publish\windows\$(_ConfigName)'))</_WindowsPublishDir>
+      <_ExtensionDesktopDir>$([System.IO.Path]::GetFullPath('$(RepoRoot)\vscode-extension\desktop'))</_ExtensionDesktopDir>
+    </PropertyGroup>
+    <ItemGroup>
+      <_BuildOutputFiles Include="$(TargetDir)**\*.*" />
+    </ItemGroup>
+    <MakeDir Directories="$(_WindowsPublishDir)" />
+    <Copy SourceFiles="@(_BuildOutputFiles)"
+          DestinationFiles="@(_BuildOutputFiles->'$(_WindowsPublishDir)\%(RecursiveDir)%(Filename)%(Extension)')"
+          SkipUnchangedFiles="true" />
+    <Message Importance="high" Text="Synced build output -&gt; $(_WindowsPublishDir)" />
+    <MakeDir Directories="$(_ExtensionDesktopDir)" Condition="'$(Configuration)' == 'Release'" />
+    <Copy SourceFiles="@(_BuildOutputFiles)"
+          DestinationFiles="@(_BuildOutputFiles->'$(_ExtensionDesktopDir)\%(RecursiveDir)%(Filename)%(Extension)')"
+          SkipUnchangedFiles="true"
+          Condition="'$(Configuration)' == 'Release'" />
+    <Message Importance="high"
+             Text="Synced Release build output -&gt; $(_ExtensionDesktopDir)"
+             Condition="'$(Configuration)' == 'Release'" />
+  </Target>
+</Project>

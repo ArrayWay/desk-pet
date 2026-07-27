@@ -1,0 +1,34 @@
+{
+  "source": "D:\\ai_tools\\codex_workspace\\desk-pet\\source-picture\\\u4eba\u72692\\waiting.png",
+  "cell_size": [
+    192,
+    208
+  ],
+  "background": [
+    253,
+    253,
+    253
+  ],
+  "background_threshold": 28,
+  "rows": [
+    {
+      "state": "waiting",
+      "frame_count": 6,
+      "method": "components",
+      "source_band": [
+        0,
+        298,
+        1717,
+        658
+      ],
+      "subject_centers": [
+        155,
+        442,
+        734,
+        1002,
+        1290,
+        1570
+      ]
+    }
+  ]
+}

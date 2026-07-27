@@ -1,0 +1,122 @@
+{
+  "source": "D:\\ai_tools\\codex_workspace\\desk-pet\\source-picture\\dog-companion\\dog-guarding-reference.png",
+  "cell_size": [
+    192,
+    208
+  ],
+  "chroma_key": [
+    0,
+    255,
+    0
+  ],
+  "threshold": 76,
+  "padding": 10,
+  "grid": [
+    3,
+    2
+  ],
+  "frames": [
+    {
+      "index": 0,
+      "source_slot": [
+        0,
+        0,
+        682,
+        1024
+      ],
+      "content_bounds": [
+        29,
+        10,
+        162,
+        198
+      ],
+      "opaque_pixels": 19719,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\tmp\\frames-dog-rebuilt\\guarding\\00.png"
+    },
+    {
+      "index": 1,
+      "source_slot": [
+        682,
+        0,
+        1364,
+        1024
+      ],
+      "content_bounds": [
+        29,
+        10,
+        162,
+        198
+      ],
+      "opaque_pixels": 19625,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\tmp\\frames-dog-rebuilt\\guarding\\01.png"
+    },
+    {
+      "index": 2,
+      "source_slot": [
+        1364,
+        0,
+        2048,
+        1024
+      ],
+      "content_bounds": [
+        32,
+        10,
+        160,
+        198
+      ],
+      "opaque_pixels": 18799,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\tmp\\frames-dog-rebuilt\\guarding\\02.png"
+    },
+    {
+      "index": 3,
+      "source_slot": [
+        0,
+        1024,
+        682,
+        2048
+      ],
+      "content_bounds": [
+        30,
+        10,
+        162,
+        198
+      ],
+      "opaque_pixels": 19417,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\tmp\\frames-dog-rebuilt\\guarding\\03.png"
+    },
+    {
+      "index": 4,
+      "source_slot": [
+        682,
+        1024,
+        1364,
+        2048
+      ],
+      "content_bounds": [
+        21,
+        10,
+        170,
+        198
+      ],
+      "opaque_pixels": 20590,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\tmp\\frames-dog-rebuilt\\guarding\\04.png"
+    },
+    {
+      "index": 5,
+      "source_slot": [
+        1364,
+        1024,
+        2048,
+        2048
+      ],
+      "content_bounds": [
+        26,
+        10,
+        166,
+        198
+      ],
+      "opaque_pixels": 19896,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\tmp\\frames-dog-rebuilt\\guarding\\05.png"
+    }
+  ]
+}

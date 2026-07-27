@@ -1,0 +1,119 @@
+{
+    "schemaVersion": 1,
+    "displayName": "浮光橙仔",
+    "spritesheet": {
+        "webp": "spritesheet.webp",
+        "pngFallback": "spritesheet.png",
+        "width": 1536,
+        "height": 3120,
+        "cellWidth": 192,
+        "cellHeight": 208
+    },
+    "states": {
+        "idle": {
+            "row": 0,
+            "frames": 6,
+            "intervalMs": 240,
+            "loop": true,
+            "label": "待机"
+        },
+        "running-right": {
+            "row": 1,
+            "frames": 8,
+            "intervalMs": 110,
+            "loop": true,
+            "label": "向右奔跑"
+        },
+        "running-left": {
+            "row": 2,
+            "frames": 8,
+            "intervalMs": 110,
+            "loop": true,
+            "label": "向左奔跑"
+        },
+        "waving": {
+            "row": 3,
+            "frames": 4,
+            "intervalMs": 180,
+            "loop": false,
+            "label": "挥手"
+        },
+        "jumping": {
+            "row": 4,
+            "frames": 5,
+            "intervalMs": 150,
+            "loop": false,
+            "label": "跳跃"
+        },
+        "failed": {
+            "row": 5,
+            "frames": 8,
+            "intervalMs": 180,
+            "loop": false,
+            "label": "失败"
+        },
+        "waiting": {
+            "row": 6,
+            "frames": 6,
+            "intervalMs": 240,
+            "loop": true,
+            "label": "等待"
+        },
+        "running": {
+            "row": 7,
+            "frames": 6,
+            "intervalMs": 120,
+            "loop": true,
+            "label": "奔跑"
+        },
+        "review": {
+            "row": 8,
+            "frames": 6,
+            "intervalMs": 190,
+            "loop": false,
+            "label": "检查"
+        },
+        "picked-up": {
+            "row": 9,
+            "frames": 8,
+            "intervalMs": 110,
+            "loop": true,
+            "label": "被提起"
+        },
+        "landing": {
+            "row": 10,
+            "frames": 8,
+            "intervalMs": 110,
+            "loop": false,
+            "label": "落地"
+        },
+        "stretching": {
+            "row": 11,
+            "frames": 8,
+            "intervalMs": 140,
+            "loop": false,
+            "label": "伸懒腰"
+        },
+        "sitting": {
+            "row": 12,
+            "frames": 8,
+            "intervalMs": 180,
+            "loop": false,
+            "label": "坐下"
+        },
+        "sleeping": {
+            "row": 13,
+            "frames": 8,
+            "intervalMs": 260,
+            "loop": true,
+            "label": "睡觉"
+        },
+        "celebrating": {
+            "row": 14,
+            "frames": 8,
+            "intervalMs": 110,
+            "loop": false,
+            "label": "庆祝"
+        }
+    }
+}

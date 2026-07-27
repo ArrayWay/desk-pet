@@ -1,0 +1,9 @@
+.github/**
+.vscode/**
+tmp/**
+node_modules/**
+*.vsix
+desktop/**/*.pdb
+desktop/Data/**
+desktop/**/frames-manifest.json
+desktop/**/composite-manifest.json

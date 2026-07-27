@@ -1,0 +1,122 @@
+{
+  "source": "D:\\ai_tools\\codex_workspace\\desk-pet\\source-picture\\second-dog-companion\\second-dog-frisbee-run-right-reference.png",
+  "cell_size": [
+    192,
+    208
+  ],
+  "chroma_key": [
+    0,
+    255,
+    0
+  ],
+  "threshold": 76,
+  "padding": 10,
+  "grid": [
+    3,
+    2
+  ],
+  "frames": [
+    {
+      "index": 0,
+      "source_slot": [
+        0,
+        0,
+        682,
+        1024
+      ],
+      "content_bounds": [
+        10,
+        52,
+        182,
+        198
+      ],
+      "opaque_pixels": 15564,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\tmp\\second-dog-first-stage-frames\\running-right\\00.png"
+    },
+    {
+      "index": 1,
+      "source_slot": [
+        682,
+        0,
+        1364,
+        1024
+      ],
+      "content_bounds": [
+        10,
+        45,
+        182,
+        198
+      ],
+      "opaque_pixels": 15846,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\tmp\\second-dog-first-stage-frames\\running-right\\01.png"
+    },
+    {
+      "index": 2,
+      "source_slot": [
+        1364,
+        0,
+        2048,
+        1024
+      ],
+      "content_bounds": [
+        10,
+        64,
+        182,
+        198
+      ],
+      "opaque_pixels": 14825,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\tmp\\second-dog-first-stage-frames\\running-right\\02.png"
+    },
+    {
+      "index": 3,
+      "source_slot": [
+        0,
+        1024,
+        682,
+        2048
+      ],
+      "content_bounds": [
+        10,
+        64,
+        182,
+        198
+      ],
+      "opaque_pixels": 14052,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\tmp\\second-dog-first-stage-frames\\running-right\\03.png"
+    },
+    {
+      "index": 4,
+      "source_slot": [
+        682,
+        1024,
+        1364,
+        2048
+      ],
+      "content_bounds": [
+        48,
+        10,
+        144,
+        198
+      ],
+      "opaque_pixels": 12559,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\tmp\\second-dog-first-stage-frames\\running-right\\04.png"
+    },
+    {
+      "index": 5,
+      "source_slot": [
+        1364,
+        1024,
+        2048,
+        2048
+      ],
+      "content_bounds": [
+        10,
+        43,
+        182,
+        198
+      ],
+      "opaque_pixels": 18341,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\tmp\\second-dog-first-stage-frames\\running-right\\05.png"
+    }
+  ]
+}

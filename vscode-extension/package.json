@@ -1,0 +1,121 @@
+{
+    "name": "fuguang-orange-pet",
+    "displayName": "浮光橙仔",
+    "description": "在 VS Code 侧边栏陪伴编码的动画桌宠。",
+    "version": "1.2.1",
+    "publisher": "jackrain-local",
+    "license": "UNLICENSED",
+    "extensionKind": [
+        "ui"
+    ],
+    "engines": {
+        "vscode": "^1.90.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "onStartupFinished"
+    ],
+    "main": "./src/extension.js",
+    "contributes": {
+        "commands": [
+            {
+                "command": "fuguangPet.open",
+                "title": "浮光橙仔: 打开桌宠"
+            },
+            {
+                "command": "fuguangPet.startDesktop",
+                "title": "浮光橙仔: 启动桌面宠物"
+            },
+            {
+                "command": "fuguangPet.showDesktop",
+                "title": "浮光橙仔: 显示桌面宠物"
+            },
+            {
+                "command": "fuguangPet.hideDesktop",
+                "title": "浮光橙仔: 隐藏桌面宠物"
+            },
+            {
+                "command": "fuguangPet.togglePause",
+                "title": "浮光橙仔: 暂停或继续桌面宠物"
+            },
+            {
+                "command": "fuguangPet.exitDesktop",
+                "title": "浮光橙仔: 退出桌面宠物"
+            },
+            {
+                "command": "fuguangPet.startFocus",
+                "title": "浮光橙仔: 开始专注"
+            },
+            {
+                "command": "fuguangPet.stopFocus",
+                "title": "浮光橙仔: 停止专注"
+            },
+            {
+                "command": "fuguangPet.remindLater",
+                "title": "浮光橙仔: 稍后提醒我"
+            }
+        ],
+        "viewsContainers": {
+            "activitybar": [
+                {
+                    "id": "fuguangPet",
+                    "title": "浮光橙仔",
+                    "icon": "media/activity-icon.svg"
+                }
+            ]
+        },
+        "views": {
+            "fuguangPet": [
+                {
+                    "type": "webview",
+                    "id": "fuguangPet.view",
+                    "name": "浮光橙仔"
+                }
+            ]
+        }
+    },
+    "configuration": {
+        "title": "浮光橙仔",
+        "properties": {
+            "fuguangPet.eventDriven": {
+                "type": "boolean",
+                "default": true,
+                "description": "根据编辑、保存、任务和调试事件自动切换桌宠动作。"
+            },
+            "fuguangPet.desktopExecutable": {
+                "type": "string",
+                "default": "",
+                "description": "独立桌宠程序 Fuguang.DesktopPet.exe 的路径。留空时使用扩展内置路径。"
+            },
+            "fuguangPet.autoStartDesktop": {
+                "type": "boolean",
+                "default": true,
+                "description": "VS Code 启动后自动启动桌面宠物。"
+            },
+            "fuguangPet.focusMinutes": {
+                "type": "number",
+                "default": 25,
+                "minimum": 1,
+                "maximum": 180,
+                "description": "自定义专注时长（分钟）。"
+            },
+            "fuguangPet.breakMinutes": {
+                "type": "number",
+                "default": 5,
+                "minimum": 1,
+                "maximum": 60,
+                "description": "自定义休息时长（分钟）。"
+            },
+            "fuguangPet.gitReminder": {
+                "type": "boolean",
+                "default": true,
+                "description": "低频提醒当前 Git 仓库存在未提交改动。"
+            }
+        }
+    },
+    "scripts": {
+        "check": "node --check src/extension.js"
+    }
+}

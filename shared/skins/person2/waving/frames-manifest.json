@@ -1,0 +1,32 @@
+{
+  "source": "D:\\ai_tools\\codex_workspace\\desk-pet\\source-picture\\\u4eba\u72692\\waving.png",
+  "cell_size": [
+    192,
+    208
+  ],
+  "background": [
+    254,
+    254,
+    254
+  ],
+  "background_threshold": 28,
+  "rows": [
+    {
+      "state": "waving",
+      "frame_count": 4,
+      "method": "components",
+      "source_band": [
+        0,
+        158,
+        1717,
+        724
+      ],
+      "subject_centers": [
+        229,
+        641,
+        1032,
+        1440
+      ]
+    }
+  ]
+}

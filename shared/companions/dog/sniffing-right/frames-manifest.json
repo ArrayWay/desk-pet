@@ -1,0 +1,123 @@
+{
+  "source": "D:\\ai_tools\\codex_workspace\\desk-pet\\source-picture\\dog-companion\\dog-sniffing-right-reference.png",
+  "cell_size": [
+    192,
+    208
+  ],
+  "chroma_key": [
+    0,
+    255,
+    0
+  ],
+  "threshold": 76,
+  "padding": 10,
+  "grid": [
+    3,
+    2
+  ],
+  "extraction": "row-components",
+  "frames": [
+    {
+      "index": 0,
+      "source_slot": [
+        0,
+        0,
+        682,
+        1024
+      ],
+      "content_bounds": [
+        10,
+        87,
+        182,
+        198
+      ],
+      "opaque_pixels": 13900,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\shared\\companions\\dog\\sniffing-right\\00.png"
+    },
+    {
+      "index": 1,
+      "source_slot": [
+        682,
+        0,
+        1364,
+        1024
+      ],
+      "content_bounds": [
+        10,
+        84,
+        182,
+        198
+      ],
+      "opaque_pixels": 13801,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\shared\\companions\\dog\\sniffing-right\\01.png"
+    },
+    {
+      "index": 2,
+      "source_slot": [
+        1364,
+        0,
+        2048,
+        1024
+      ],
+      "content_bounds": [
+        10,
+        86,
+        182,
+        198
+      ],
+      "opaque_pixels": 13248,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\shared\\companions\\dog\\sniffing-right\\02.png"
+    },
+    {
+      "index": 3,
+      "source_slot": [
+        0,
+        1024,
+        682,
+        2048
+      ],
+      "content_bounds": [
+        10,
+        68,
+        182,
+        198
+      ],
+      "opaque_pixels": 16974,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\shared\\companions\\dog\\sniffing-right\\03.png"
+    },
+    {
+      "index": 4,
+      "source_slot": [
+        682,
+        1024,
+        1364,
+        2048
+      ],
+      "content_bounds": [
+        10,
+        78,
+        182,
+        198
+      ],
+      "opaque_pixels": 15402,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\shared\\companions\\dog\\sniffing-right\\04.png"
+    },
+    {
+      "index": 5,
+      "source_slot": [
+        1364,
+        1024,
+        2048,
+        2048
+      ],
+      "content_bounds": [
+        10,
+        85,
+        182,
+        198
+      ],
+      "opaque_pixels": 14407,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\shared\\companions\\dog\\sniffing-right\\05.png"
+    }
+  ]
+}

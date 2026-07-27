@@ -1,0 +1,34 @@
+{
+  "source": "D:\\ai_tools\\codex_workspace\\desk-pet\\source-picture\\\u4eba\u72692\\jumping.png",
+  "cell_size": [
+    192,
+    208
+  ],
+  "background": [
+    254,
+    254,
+    254
+  ],
+  "background_threshold": 28,
+  "rows": [
+    {
+      "state": "jumping",
+      "frame_count": 5,
+      "method": "stable-slots",
+      "source_band": [
+        0,
+        182,
+        1717,
+        672
+      ],
+      "subject_centers": [
+        176,
+        531,
+        856,
+        866,
+        1177,
+        1555
+      ]
+    }
+  ]
+}
