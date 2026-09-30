@@ -5,6 +5,7 @@
   "bowl_width": 64,
   "right": 8,
   "bottom": 10,
+  "dog_scale": 0.74,
   "layer_order": [
     "food-bowl",
     "dog"

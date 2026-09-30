@@ -145,6 +145,17 @@ public sealed class StatusBarWindow : Window
         }
     }
 
+    public void UpdateMainContent(string name, int affection, int mood, string? detail = null)
+    {
+        _titleText.Text = name;
+        var statsPart = "亲密度 " + affection + "  ·  心情 " + mood;
+        _statsText.Text = string.IsNullOrWhiteSpace(detail) ? statsPart : statsPart + "\n" + detail;
+        if (IsVisible)
+        {
+            UpdateLayout();
+        }
+    }
+
     /// <summary>
     /// Place the bar above the host when possible; fall back below if near the top edge.
     /// Does not cover the character body.

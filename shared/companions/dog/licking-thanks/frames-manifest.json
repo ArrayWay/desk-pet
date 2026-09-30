@@ -1,0 +1,133 @@
+{
+  "source": "D:\\ai_tools\\codex_workspace\\desk-pet\\source-picture\\dog-companion\\dog-licking-thanks-reference.png",
+  "cell_size": [
+    192,
+    208
+  ],
+  "chroma_key": [
+    0,
+    255,
+    0
+  ],
+  "threshold": 76,
+  "padding": 10,
+  "grid": [
+    3,
+    2
+  ],
+  "source_indices": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "extraction": "grid-slots",
+  "green_screen": true,
+  "slot_inset": 0,
+  "frames": [
+    {
+      "index": 0,
+      "source_slot": [
+        0,
+        0,
+        682,
+        1024
+      ],
+      "content_bounds": [
+        10,
+        59,
+        182,
+        198
+      ],
+      "opaque_pixels": 17147,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\shared\\companions\\dog\\licking-thanks\\00.png"
+    },
+    {
+      "index": 1,
+      "source_slot": [
+        682,
+        0,
+        1364,
+        1024
+      ],
+      "content_bounds": [
+        10,
+        22,
+        182,
+        198
+      ],
+      "opaque_pixels": 22739,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\shared\\companions\\dog\\licking-thanks\\01.png"
+    },
+    {
+      "index": 2,
+      "source_slot": [
+        1364,
+        0,
+        2048,
+        1024
+      ],
+      "content_bounds": [
+        10,
+        22,
+        182,
+        198
+      ],
+      "opaque_pixels": 22722,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\shared\\companions\\dog\\licking-thanks\\02.png"
+    },
+    {
+      "index": 3,
+      "source_slot": [
+        0,
+        1024,
+        682,
+        2048
+      ],
+      "content_bounds": [
+        10,
+        33,
+        182,
+        198
+      ],
+      "opaque_pixels": 21563,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\shared\\companions\\dog\\licking-thanks\\03.png"
+    },
+    {
+      "index": 4,
+      "source_slot": [
+        682,
+        1024,
+        1364,
+        2048
+      ],
+      "content_bounds": [
+        10,
+        33,
+        182,
+        198
+      ],
+      "opaque_pixels": 21863,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\shared\\companions\\dog\\licking-thanks\\04.png"
+    },
+    {
+      "index": 5,
+      "source_slot": [
+        1364,
+        1024,
+        2048,
+        2048
+      ],
+      "content_bounds": [
+        10,
+        33,
+        182,
+        198
+      ],
+      "opaque_pixels": 21667,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\shared\\companions\\dog\\licking-thanks\\05.png"
+    }
+  ]
+}

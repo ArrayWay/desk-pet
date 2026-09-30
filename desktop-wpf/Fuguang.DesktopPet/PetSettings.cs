@@ -43,6 +43,7 @@ public sealed class PetSettings
     /// <summary>主宠备注（仅本地展示，不参与玩法逻辑）。</summary>
     public string Note { get; set; } = string.Empty;
     public string MainPetSkin { get; set; } = "default";
+    public string MenuTheme { get; set; } = "tech";
     public VisitorSettings Visitor { get; set; } = new();
 
     public static PetSettings Load(string path)
@@ -131,6 +132,13 @@ public sealed class PetSettings
         MainPetSkin = string.Equals(MainPetSkin, "person2", StringComparison.OrdinalIgnoreCase)
             ? "person2"
             : "default";
+        MenuTheme = MenuTheme switch
+        {
+            "cute" => "cute",
+            "emerald" => "emerald",
+            "academy" => "academy",
+            _ => "tech"
+        };
         Visitor ??= new VisitorSettings();
         Visitor.Normalize();
         FocusSessionsToday = Math.Max(0, FocusSessionsToday);

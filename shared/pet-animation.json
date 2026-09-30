@@ -114,6 +114,27 @@
             "intervalMs": 110,
             "loop": false,
             "label": "庆祝"
+        },
+        "morning-high-five-main": {
+            "row": 14,
+            "frames": 6,
+            "intervalMs": 160,
+            "loop": false,
+            "label": "晨间击掌"
+        },
+        "short-drag-comfort-main": {
+            "row": 14,
+            "frames": 6,
+            "intervalMs": 160,
+            "loop": false,
+            "label": "短拖安抚"
+        },
+        "focus-complete-main": {
+            "row": 14,
+            "frames": 6,
+            "intervalMs": 160,
+            "loop": false,
+            "label": "专注完成"
         }
     }
 }

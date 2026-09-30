@@ -15,6 +15,17 @@
     3,
     2
   ],
+  "source_indices": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "extraction": "grid-slots",
+  "green_screen": true,
+  "slot_inset": 0,
   "frames": [
     {
       "index": 0,
@@ -30,8 +41,8 @@
         182,
         198
       ],
-      "opaque_pixels": 23454,
-      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\tmp\\frames-dog-rebuilt\\idle\\00.png"
+      "opaque_pixels": 23100,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\tmp\\dog1-idle-clean-candidate\\00.png"
     },
     {
       "index": 1,
@@ -42,13 +53,13 @@
         1024
       ],
       "content_bounds": [
-        10,
+        11,
         10,
         181,
         198
       ],
-      "opaque_pixels": 25253,
-      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\tmp\\frames-dog-rebuilt\\idle\\01.png"
+      "opaque_pixels": 24538,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\tmp\\dog1-idle-clean-candidate\\01.png"
     },
     {
       "index": 2,
@@ -64,8 +75,8 @@
         178,
         198
       ],
-      "opaque_pixels": 23574,
-      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\tmp\\frames-dog-rebuilt\\idle\\02.png"
+      "opaque_pixels": 23115,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\tmp\\dog1-idle-clean-candidate\\02.png"
     },
     {
       "index": 3,
@@ -81,8 +92,8 @@
         182,
         198
       ],
-      "opaque_pixels": 23101,
-      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\tmp\\frames-dog-rebuilt\\idle\\03.png"
+      "opaque_pixels": 22798,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\tmp\\dog1-idle-clean-candidate\\03.png"
     },
     {
       "index": 4,
@@ -94,12 +105,12 @@
       ],
       "content_bounds": [
         10,
-        28,
+        26,
         182,
         198
       ],
-      "opaque_pixels": 21794,
-      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\tmp\\frames-dog-rebuilt\\idle\\04.png"
+      "opaque_pixels": 21827,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\tmp\\dog1-idle-clean-candidate\\04.png"
     },
     {
       "index": 5,
@@ -115,8 +126,8 @@
         182,
         198
       ],
-      "opaque_pixels": 23097,
-      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\tmp\\frames-dog-rebuilt\\idle\\05.png"
+      "opaque_pixels": 22808,
+      "path": "D:\\ai_tools\\codex_workspace\\desk-pet\\tmp\\dog1-idle-clean-candidate\\05.png"
     }
   ]
 }

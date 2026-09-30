@@ -3,6 +3,7 @@ using System.Threading;
 using System.IO.Pipes;
 using System.Text.Json;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace Fuguang.DesktopPet;
 
@@ -22,6 +23,7 @@ public partial class App : System.Windows.Application
         }
 
         base.OnStartup(e);
+        DispatcherUnhandledException += App_DispatcherUnhandledException;
         var window = new MainWindow();
         MainWindow = window;
         window.Show();
@@ -31,6 +33,23 @@ public partial class App : System.Windows.Application
     {
         _singleInstanceMutex?.Dispose();
         base.OnExit(e);
+    }
+
+    private static void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+    {
+        try
+        {
+            var directory = Path.Combine(AppContext.BaseDirectory, "Data");
+            Directory.CreateDirectory(directory);
+            var path = Path.Combine(directory, "pet.log");
+            File.AppendAllText(path, $"{DateTimeOffset.Now:O} | 未处理 WPF 异常 | {e.Exception}{Environment.NewLine}");
+        }
+        catch (IOException)
+        {
+        }
+        catch (UnauthorizedAccessException)
+        {
+        }
     }
 
     private static void NotifyExistingInstance()

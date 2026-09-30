@@ -19,7 +19,7 @@ public partial class MainWindow : Window
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
         "Fuguang.DesktopPet");
     private readonly string _settingsPath = Path.Combine(UserDataDirectory, "pet-settings.json");
-    private readonly string _logPath = Path.Combine(UserDataDirectory, "pet.log");
+    private readonly string _logPath = Path.Combine(AppContext.BaseDirectory, "Data", "pet.log");
     private readonly DispatcherTimer _animationTimer = new();
     private readonly DispatcherTimer _movementTimer = new() { Interval = TimeSpan.FromMilliseconds(16) };
     private readonly DispatcherTimer _stateRestoreTimer = new();
@@ -29,13 +29,16 @@ public partial class MainWindow : Window
     private readonly DispatcherTimer _idleTimer = new() { Interval = TimeSpan.FromSeconds(20) };
     private readonly CancellationTokenSource _shutdown = new();
     private readonly Forms.NotifyIcon _trayIcon;
+    private ThemeMenuWindow? _themeMenu;
+    private bool _themeMenuOpening;
+    private bool _isClosing;
     private readonly NotificationBubbleWindow _bubble = new();
     private readonly StatusBarWindow _mainStatusBar = new(StatusBarTheme.Main);
     private readonly StatusBarWindow _visitorStatusBar = new(StatusBarTheme.Visitor);
     private Forms.ToolStripMenuItem? _growthMenuItem;
     private Forms.ToolStripMenuItem? _statusBarMenuItem;
     private readonly DispatcherTimer _statusBarTimer = new() { Interval = TimeSpan.FromMilliseconds(250) };
-    private readonly DispatcherTimer _satietyTimer = new() { Interval = TimeSpan.FromMinutes(8) };
+    private readonly DispatcherTimer _visitorSatietyTimer = new() { Interval = TimeSpan.FromMinutes(8) };
     private Forms.ToolStripMenuItem? _visibilityMenuItem;
     private Forms.ToolStripMenuItem? _visitorCompanionMenuItem;
     private Forms.ToolStripMenuItem? _visitorMenuItem;
@@ -93,6 +96,7 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+        EnsureLogFile();
         LoadSettings();
         _trayIcon = CreateTrayIcon();
         Loaded += MainWindow_Loaded;
@@ -120,8 +124,8 @@ public partial class MainWindow : Window
             _moodTimer.Start();
             _statusBarTimer.Tick += StatusBarTimer_Tick;
             _statusBarTimer.Start();
-            _satietyTimer.Tick += SatietyTimer_Tick;
-            _satietyTimer.Start();
+            _visitorSatietyTimer.Tick += SatietyTimer_Tick;
+            _visitorSatietyTimer.Start();
             _idleTimer.Start();
             if (_settings.Visitor.Enabled || _settings.Visitor.AutoVisit)
             {
@@ -153,6 +157,21 @@ public partial class MainWindow : Window
         Height = _config.Spritesheet.CellHeight;
         PetImage.Width = Width;
         PetImage.Height = Height;
+    }
+
+    private void EnsureLogFile()
+    {
+        try
+        {
+            Directory.CreateDirectory(Path.GetDirectoryName(_logPath)!);
+            if (!File.Exists(_logPath)) File.WriteAllText(_logPath, string.Empty);
+        }
+        catch (IOException)
+        {
+        }
+        catch (UnauthorizedAccessException)
+        {
+        }
     }
 
     private void LoadSettings()
@@ -415,7 +434,10 @@ public partial class MainWindow : Window
             if (DateTime.UtcNow - _dragStartedAt < TimeSpan.FromMilliseconds(900)
                 && _dragDistance < 72)
             {
-                Play("waving", 1200, 70);
+                if (!TryPlaySynchronizedInteraction("short-drag-comfort-main", VisitorState.ShortDragComfort, 1200, 70))
+                {
+                    Play("waving", 1200, 70);
+                }
                 ShowBubble("轻轻安抚一下，收到啦。", 1800);
             }
         }
@@ -1005,6 +1027,284 @@ public partial class MainWindow : Window
 
     private Forms.NotifyIcon CreateTrayIcon()
     {
+        var iconPath = Path.Combine(AppContext.BaseDirectory, "Assets", "deskpet.ico");
+        var menuTrigger = new Forms.ContextMenuStrip();
+        menuTrigger.Opening += (_, args) =>
+        {
+            args.Cancel = true;
+            OpenThemeMenuFromTray("ContextMenuStrip.Opening");
+        };
+        var trayIcon = new Forms.NotifyIcon
+        {
+            Text = MainPetDisplayName.Length <= 63 ? MainPetDisplayName : MainPetDisplayName[..63],
+            Icon = File.Exists(iconPath) ? new Drawing.Icon(iconPath) : Drawing.SystemIcons.Application,
+            Visible = true,
+            ContextMenuStrip = menuTrigger
+        };
+        trayIcon.MouseClick += (_, args) =>
+        {
+            if (!_isClosing && !Dispatcher.HasShutdownStarted
+                && (args.Button == Forms.MouseButtons.Left || args.Button == Forms.MouseButtons.Right))
+            {
+                OpenThemeMenuFromTray($"MouseClick.{args.Button}");
+            }
+        };
+        return trayIcon;
+    }
+
+    private void OpenThemeMenuFromTray(string source)
+    {
+        WriteLog($"托盘菜单触发：{source}");
+        try
+        {
+            Dispatcher.BeginInvoke(new Action(() => ShowThemeMenu(source)));
+        }
+        catch (InvalidOperationException)
+        {
+            // The dispatcher can begin shutting down while the tray callback is delivered.
+        }
+    }
+
+    private void ShowThemeMenu(string source)
+    {
+        if (_themeMenuOpening) return;
+        _themeMenuOpening = true;
+        try
+        {
+            WriteLog($"打开 WPF 托盘菜单：{source}");
+            var menuPosition = _themeMenu is not null
+                && !double.IsNaN(_themeMenu.Left)
+                && !double.IsNaN(_themeMenu.Top)
+                ? new System.Windows.Point(_themeMenu.Left, _themeMenu.Top)
+                : (System.Windows.Point?)null;
+            var menuScrollOffset = _themeMenu?.GetScrollOffset() ?? 0;
+            _themeMenu?.Close();
+            _themeMenu = null;
+            {
+                var visitorProfile = ActiveVisitorProfile;
+                var visitorName = GetVisitorDisplayName(visitorProfile);
+                var companionActions = new List<(string Label, Action Action)>
+                {
+                    (_settings.Visitor.Enabled ? $"送{visitorName}回家" : $"召唤{visitorName}", ToggleVisitor),
+                    ("自动来访", () =>
+                    {
+                        _settings.Visitor.AutoVisit = !_settings.Visitor.AutoVisit;
+                        if (_settings.Visitor.AutoVisit && TryShowVisitor()) _settings.Visitor.Enabled = true;
+                        SaveSettings();
+                    })
+                };
+                if (VisitorProfile.Registered.Count > 1)
+                {
+                    companionActions.AddRange(VisitorProfile.Registered.Select(profile =>
+                        ($"切换到 {GetVisitorSelectionLabel(profile)}", (Action)(() => SelectVisitor(profile.Id)))));
+                }
+                if (visitorProfile.Supports(VisitorCapabilities.Fetch)) companionActions.Add(($"和{visitorName}玩球", StartVisitorFetchGame));
+                if (visitorProfile.Supports(VisitorCapabilities.FrisbeeCatch)) companionActions.Add(($"和{visitorName}玩飞盘", StartVisitorFrisbeeGame));
+                if (visitorProfile.Supports(VisitorCapabilities.BugSearch)) companionActions.Add(($"让{visitorName}找 Bug", StartVisitorBugSearch));
+                if (visitorProfile.Supports(VisitorCapabilities.Handshake)) companionActions.Add(($"和{visitorName}握手", StartVisitorHandshake));
+                if (visitorProfile.Supports(VisitorCapabilities.Feeding))
+                {
+                    companionActions.Add(("喂零食（无冷却）", StartVisitorTreat));
+                    companionActions.Add(("喂狗粮", StartVisitorDogFood));
+                }
+                companionActions.AddRange(VisitorProfile.Registered.Select(profile =>
+                    ($"修改 {GetVisitorSelectionLabel(profile)}", (Action)(() => PromptRenameVisitor(profile)))));
+                companionActions.Add(($"当前称号：{_settings.Visitor.ActiveStats.Title} · 查看详情", ShowVisitorTitleDetails));
+
+                var focusActions = new List<(string Label, Action Action)>
+                {
+                    ("25 分钟专注 / 5 分钟休息", () => { _settings.BreakMinutes = 5; StartFocus(25, false); }),
+                    ("50 分钟专注 / 10 分钟休息", () => { _settings.BreakMinutes = 10; StartFocus(50, false); }),
+                    ("自定义专注", StartCustomFocus),
+                    ($"开始休息（{Math.Clamp(_settings.BreakMinutes, 1, 60)} 分钟）", () => StartFocus(Math.Clamp(_settings.BreakMinutes, 1, 60), true)),
+                    (_focusEndsAt is null ? "停止计时（未运行）" : "停止计时", () => StopFocus(true))
+                };
+                var reminderActions = new List<(string Label, Action Action)>
+                {
+                    ($"久坐提醒：{GetToggleLabel(_settings.BreakRemindersEnabled)}", () => ToggleSetting(() => _settings.BreakRemindersEnabled = !_settings.BreakRemindersEnabled)),
+                    ($"喝水提醒：{GetToggleLabel(_settings.WaterRemindersEnabled)}", () => ToggleSetting(() => _settings.WaterRemindersEnabled = !_settings.WaterRemindersEnabled)),
+                    ($"护眼提醒：{GetToggleLabel(_settings.EyeRemindersEnabled)}", () => ToggleSetting(() => _settings.EyeRemindersEnabled = !_settings.EyeRemindersEnabled)),
+                    ($"显示气泡：{GetToggleLabel(_settings.BubbleEnabled)}", () => ToggleSetting(() => _settings.BubbleEnabled = !_settings.BubbleEnabled))
+                };
+                var growthActions = new List<(string Label, Action Action)>
+                {
+                    ($"养成系统：{GetToggleLabel(_settings.GrowthEnabled)}", ToggleGrowth),
+                    ("显示/隐藏状态条", () =>
+                    {
+                        if (_settings.GrowthEnabled)
+                        {
+                            _settings.StatusBarEnabled = !_settings.StatusBarEnabled;
+                            SaveSettings();
+                            RefreshStatusBars();
+                        }
+                    })
+                };
+                var systemActions = new List<(string Label, Action Action)>
+                {
+                    ($"静音：{GetToggleLabel(_settings.Muted)}", () => ToggleSetting(() => _settings.Muted = !_settings.Muted)),
+                    ($"窗口置顶：{GetToggleLabel(Topmost)}", () =>
+                    {
+                        Topmost = !Topmost;
+                        SaveSettings();
+                    }),
+                    ($"动画速度：{GetAnimationSpeedLabel()}", CycleAnimationSpeed),
+                    ("回到右下角", PlaceNearBottomRight),
+                    ("回到工作区屏幕", ReturnToWorkArea)
+                };
+                var vscodeActions = new List<(string Label, Action Action)>
+                {
+                    ("打开当前项目", () => SendActionToExtension("open-project")),
+                    ("打开终端", () => SendActionToExtension("open-terminal")),
+                    ("打开问题面板", () => SendActionToExtension("open-problems")),
+                    ("打开源代码管理", () => SendActionToExtension("open-scm")),
+                    ("运行默认构建任务", () => SendActionToExtension("run-build")),
+                    ("运行默认测试任务", () => SendActionToExtension("run-test"))
+                };
+                _themeMenu = new ThemeMenuWindow(
+                    _settings.MenuTheme,
+                    MainPetDisplayName,
+                    IsVisible,
+                    _automaticMovement,
+                    _paused,
+                    GetFocusStatusLabel(),
+                    SetMenuTheme,
+                    RefreshThemeMenu,
+                    ToggleVisibility,
+                    ToggleAutomaticMovement,
+                    TogglePause,
+                    PromptRenameMainPet,
+                    CycleMainPetSkin,
+                    ToggleVisitor,
+                    companionActions,
+                    focusActions,
+                    reminderActions,
+                    growthActions,
+                    systemActions,
+                    vscodeActions,
+                    ResetSettings,
+                    CloseApplication);
+                _themeMenu.SetFocusStatusProvider(GetFocusStatusLabel);
+            }
+            _themeMenu.ApplyPalette(_settings.MenuTheme);
+            if (menuPosition is System.Windows.Point position)
+            {
+                _themeMenu.ShowAtPosition(position.X, position.Y, menuScrollOffset);
+            }
+            else
+            {
+                _themeMenu.ShowAtCursor();
+            }
+        }
+        catch (Exception exception)
+        {
+            _themeMenu?.Close();
+            _themeMenu = null;
+            WriteLog("打开 WPF 托盘菜单失败", exception);
+            ShowTrayMessage("菜单打开失败", exception.Message);
+        }
+        finally
+        {
+            _themeMenuOpening = false;
+        }
+    }
+
+    private static string GetToggleLabel(bool enabled) => enabled ? "已开启" : "已关闭";
+
+    private void RefreshThemeMenu()
+    {
+        if (_themeMenu is null || !_themeMenu.IsVisible) return;
+        Dispatcher.BeginInvoke(new Action(() => ShowThemeMenu("菜单动作后刷新")));
+    }
+
+    private void ShowVisitorTitleDetails()
+    {
+        var progress = GrowthService.GetVisitorTitleProgress(_settings.Visitor.ActiveStats);
+        var dialog = new VisitorTitleWindow(GetVisitorDisplayName(), progress, _settings.MenuTheme)
+        {
+            WindowStartupLocation = WindowStartupLocation.CenterOwner
+        };
+        dialog.Show();
+    }
+
+    private string GetFocusStatusLabel()
+    {
+        if (_focusEndsAt is null) return "当前状态：未开始";
+        var remaining = _focusEndsAt.Value - DateTimeOffset.Now;
+        var seconds = Math.Max(0, (int)Math.Ceiling(remaining.TotalSeconds));
+        var minutes = seconds / 60;
+        var remainder = seconds % 60;
+        var mode = _focusIsBreak ? "休息中" : "专注中";
+        return $"当前状态：{mode} · 剩余 {minutes:00}:{remainder:00}";
+    }
+
+    private void SetMenuTheme(string theme)
+    {
+        _settings.MenuTheme = theme;
+        _settings.Save(_settingsPath);
+        _themeMenu?.ApplyPalette(theme);
+    }
+
+    private void ToggleAutomaticMovement()
+    {
+        _automaticMovement = !_automaticMovement;
+        SaveSettings();
+        RestoreAmbientState();
+    }
+
+    private void CycleMainPetSkin()
+    {
+        _settings.MainPetSkin = string.Equals(_settings.MainPetSkin, "default", StringComparison.OrdinalIgnoreCase)
+            ? "person2"
+            : "default";
+        SaveSettings();
+        Play(_currentStateName, 0, _activePriority);
+    }
+
+    private void ToggleBreakReminders()
+    {
+        _settings.BreakRemindersEnabled = !_settings.BreakRemindersEnabled;
+        SaveSettings();
+    }
+
+    private void ToggleSetting(Action update)
+    {
+        update();
+        SaveSettings();
+    }
+
+    private void SetAnimationSpeed(double speed)
+    {
+        _settings.AnimationSpeed = speed;
+        SaveSettings();
+        Play(_currentStateName, 0, _activePriority);
+    }
+
+    private string GetAnimationSpeedLabel()
+    {
+        if (_settings.AnimationSpeed < 0.9) return "慢";
+        if (_settings.AnimationSpeed > 1.15) return "快";
+        return "标准";
+    }
+
+    private void CycleAnimationSpeed()
+    {
+        var nextSpeed = _settings.AnimationSpeed < 0.9
+            ? 1.0
+            : _settings.AnimationSpeed > 1.15
+                ? 0.75
+                : 1.4;
+        SetAnimationSpeed(nextSpeed);
+    }
+
+    private void ToggleGrowth()
+    {
+        _settings.GrowthEnabled = !_settings.GrowthEnabled;
+        SaveSettings();
+        RefreshStatusBars();
+    }
+
+    private Forms.NotifyIcon CreateLegacyTrayIcon()
+    {
         var visitorProfile = ActiveVisitorProfile;
         var menu = new Forms.ContextMenuStrip();
         _visibilityMenuItem = new Forms.ToolStripMenuItem("隐藏桌宠");
@@ -1388,11 +1688,9 @@ public partial class MainWindow : Window
     {
         if (_paused || _dragging || _focusEndsAt is not null || DateTime.Now - _lastActivityAt < TimeSpan.FromSeconds(45) || DateTime.Now - _lastIdleActionAt < TimeSpan.FromSeconds(35)) return;
         TryPlayVisitorEasterEgg();
-        var candidates = _settings.Stamina < GrowthService.SoftStaminaThreshold
-            ? new[] { "sleeping", "sitting", "idle" }
-            : _settings.Mood > 75
-                ? new[] { "stretching", "waving", "jumping", "idle" }
-                : new[] { "sitting", "stretching", "idle", "review" };
+        var candidates = _settings.Mood > 75
+            ? new[] { "stretching", "waving", "jumping", "idle" }
+            : new[] { "sitting", "stretching", "idle", "review" };
         var choices = candidates.Where(state => state != _lastIdleState).ToArray();
         var next = choices.Length > 0 ? choices[Random.Shared.Next(choices.Length)] : "idle";
         _lastIdleState = next;
@@ -1413,7 +1711,8 @@ public partial class MainWindow : Window
         if (_settings.Visitor.LastMorningVisit == today) return;
         _settings.Visitor.LastMorningVisit = today;
         _settings.Visitor.Enabled = true;
-        if (!TryPlayActiveGreeting("早晨见面"))
+        if (!TryPlaySynchronizedInteraction("morning-high-five-main", VisitorState.MorningHighFive, 1800, 70)
+            && !TryPlayActiveGreeting("早晨见面"))
         {
             _activeVisitor.PlayState(VisitorState.HappyCelebration, 3200, 45);
         }
@@ -1430,6 +1729,27 @@ public partial class MainWindow : Window
 
         _lastActiveGreetingAt = DateTimeOffset.Now;
         ShowBubble($"{GetVisitorDisplayName()}主动招呼你：{source}。", 2800);
+        return true;
+    }
+
+    private bool TryPlaySynchronizedInteraction(
+        string mainState,
+        VisitorState visitorState,
+        int durationMs,
+        int priority)
+    {
+        if (_activeVisitor is null || !_settings.Visitor.Enabled || _activeVisitor.IsBusy
+            || !_config.States.ContainsKey(mainState))
+        {
+            return false;
+        }
+
+        if (!_activeVisitor.PlayState(visitorState, durationMs, priority))
+        {
+            return false;
+        }
+
+        Play(mainState, durationMs, priority);
         return true;
     }
 
@@ -1543,10 +1863,9 @@ public partial class MainWindow : Window
         if (_settings.BreakRemindersEnabled && now - _lastBreakReminderAt >= TimeSpan.FromMinutes(_settings.BreakReminderMinutes))
         {
             _lastBreakReminderAt = now;
-            var lowEnergy = _settings.Stamina < GrowthService.SoftStaminaThreshold;
-            Play(lowEnergy ? "sitting" : "waiting", 4200, 50);
-            _activeVisitor?.PlayState(lowEnergy ? VisitorState.LyingDown : VisitorState.CarryingBallRight, 4200, 50);
-            ShowBubble(lowEnergy ? "今天有点累，先休息一下。" : "坐久了，起来活动一下。", 5000);
+            Play("waiting", 4200, 50);
+            _activeVisitor?.PlayState(VisitorState.CarryingBallRight, 4200, 50);
+            ShowBubble("坐久了，起来活动一下。", 5000);
             return;
         }
         if (_settings.WaterRemindersEnabled && now - _lastWaterReminderAt >= TimeSpan.FromMinutes(_settings.WaterReminderMinutes))
@@ -1580,15 +1899,11 @@ public partial class MainWindow : Window
 
     private void SatietyTimer_Tick(object? sender, EventArgs e)
     {
-        if (_settings.Satiety > 0)
-        {
-            GrowthService.ApplyMain(_settings, GrowthAction.TickSatietyDecay);
-        }
         if (_settings.Visitor.Enabled)
         {
             GrowthService.ApplyVisitor(_settings, GrowthAction.TickSatietyDecay);
+            SaveSettings();
         }
-        SaveSettings();
     }
 
     private void StatusBarTimer_Tick(object? sender, EventArgs e)
@@ -1606,13 +1921,11 @@ public partial class MainWindow : Window
         }
 
         _mainStatusBar.Topmost = Topmost;
-        _mainStatusBar.UpdateContent(
+        _mainStatusBar.UpdateMainContent(
             MainPetDisplayName,
             _settings.Affection,
-            _settings.Stamina,
-            _settings.Satiety,
-            detail: (_settings.Stamina < GrowthService.SoftStaminaThreshold || _settings.Satiety < GrowthService.SoftSatietyThreshold ? "收益降低" : "状态稳定")
-                + $"  ·  今日专注 {_settings.FocusSessionsToday} 次/{_settings.FocusMinutesToday} 分钟");
+            _settings.Mood,
+            detail: $"今日专注 {_settings.FocusSessionsToday} 次/{_settings.FocusMinutesToday} 分钟");
         _mainStatusBar.PlaceNear(Left, Top, ActualWidth > 0 ? ActualWidth : Width, ActualHeight > 0 ? ActualHeight : Height);
 
         if (_settings.Visitor.Enabled && _activeVisitor is not null && _activeVisitor.IsVisible)
@@ -1975,8 +2288,11 @@ public partial class MainWindow : Window
             _settings.FocusMinutesToday += _focusDurationMinutes;
             GrowthService.ApplyMain(_settings, GrowthAction.MainFocusComplete);
             SaveSettings();
-            Play("celebrating", 5000, 90);
-            _activeVisitor?.PlayState(VisitorState.HappyCelebration, 5000, 90);
+            if (!TryPlaySynchronizedInteraction("focus-complete-main", VisitorState.FocusComplete, 5000, 90))
+            {
+                Play("celebrating", 5000, 90);
+                _activeVisitor?.PlayState(VisitorState.HappyCelebration, 5000, 90);
+            }
             ShowBubble("专注完成，去喝口水、活动一下。", 6000);
             StartFocus(_settings.BreakMinutes, true);
         }
@@ -2000,13 +2316,14 @@ public partial class MainWindow : Window
         SaveSettings();
         ApplyMainPetIdentityUi();
         UpdateVisitorMenuItem();
+        _themeMenu?.ApplyPalette(_settings.MenuTheme);
         ShowTrayMessage("设置已重置", "托盘勾选状态将在下次启动时同步更新。");
     }
 
     private void CloseApplication()
     {
         _statusBarTimer.Stop();
-        _satietyTimer.Stop();
+        _visitorSatietyTimer.Stop();
         _mainStatusBar.HideBar();
         _visitorStatusBar.HideBar();
         _mainStatusBar.Close();
@@ -2018,6 +2335,9 @@ public partial class MainWindow : Window
 
     private void MainWindow_Closed(object? sender, EventArgs e)
     {
+        _isClosing = true;
+        _themeMenu?.Close();
+        _themeMenu = null;
         CloseFrisbeeThrowWindow();
         _shutdown.Cancel();
         _animationTimer.Stop();

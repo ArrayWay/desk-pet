@@ -6,6 +6,7 @@ const vscode = require('vscode');
 
 const PIPE_NAME = '\\\\.\\pipe\\fuguang-desktop-pet';
 const ACTION_PIPE_NAME = '\\\\.\\pipe\\fuguang-desktop-pet-actions';
+let desktopStartPromise;
 
 class PetEventBus {
   constructor() {
@@ -127,6 +128,22 @@ class PetViewProvider {
       <button type="button" data-state="running" title="奔跑">奔跑</button>
       <button type="button" data-state="review" title="检查">检查</button>
     </div>
+    <label class="action-picker">
+      <span>更多动作</span>
+      <select id="extra-action" aria-label="更多桌宠动作">
+        <option value="">选择动作</option>
+        <option value="picked-up">被提起</option>
+        <option value="landing">落地</option>
+        <option value="stretching">伸懒腰</option>
+        <option value="sitting">坐下</option>
+        <option value="sleeping">睡觉</option>
+        <option value="celebrating">庆祝</option>
+        <option value="failed">失败</option>
+        <option value="waiting">等待</option>
+        <option value="running-left">向左奔跑</option>
+        <option value="running-right">向右奔跑</option>
+      </select>
+    </label>
     <label class="setting-row">
       <span>启动 VS Code 时自动运行桌宠</span>
       <input id="auto-start-desktop" type="checkbox" aria-label="启动 VS Code 时自动运行桌宠">
@@ -141,6 +158,8 @@ class PetViewProvider {
     .pet.bounce { animation: bounce 220ms ease-out; }
     .status { min-height: 18px; color: var(--vscode-descriptionForeground); font-size: 12px; }
     .controls { width: min(100%, 340px); display: grid; grid-template-columns: repeat(5, minmax(48px, 1fr)); gap: 6px; }
+    .action-picker { width: min(100%, 340px); display: flex; align-items: center; justify-content: space-between; gap: 10px; color: var(--vscode-descriptionForeground); font-size: 12px; }
+    .action-picker select { min-width: 150px; max-width: 60%; color: var(--vscode-dropdown-foreground); background: var(--vscode-dropdown-background); border: 1px solid var(--vscode-dropdown-border); border-radius: 4px; padding: 4px 6px; font: inherit; }
     .setting-row { width: min(100%, 340px); display: flex; align-items: center; justify-content: space-between; gap: 12px; color: var(--vscode-foreground); font-size: 12px; }
     .setting-row span { min-width: 0; }
     .setting-row input { flex: 0 0 auto; accent-color: var(--vscode-focusBorder); cursor: pointer; }
@@ -157,6 +176,7 @@ class PetViewProvider {
     const pet = document.getElementById('pet');
     const status = document.getElementById('status');
     const buttons = [...document.querySelectorAll('[data-state]')];
+    const extraAction = document.getElementById('extra-action');
     const autoStartDesktop = document.getElementById('auto-start-desktop');
     let timer;
     let currentState = 'idle';
@@ -207,6 +227,10 @@ class PetViewProvider {
     }
 
     buttons.forEach((button) => button.addEventListener('click', () => request(button.dataset.state)));
+    extraAction.addEventListener('change', () => {
+      if (extraAction.value) request(extraAction.value);
+      extraAction.value = '';
+    });
     pet.addEventListener('click', () => request('waving'));
     pet.addEventListener('dblclick', () => request('jumping'));
     pet.addEventListener('keydown', (event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); request('waving'); } });
@@ -441,7 +465,43 @@ function registerGitReminder(context, eventBus) {
 }
 
 async function startDesktopPet(context, eventBus) {
-  const configured = vscode.workspace.getConfiguration('fuguangPet').get('desktopExecutable', '').trim();
+  if (desktopStartPromise) return desktopStartPromise;
+  desktopStartPromise = startDesktopPetInternal(context, eventBus).finally(() => {
+    desktopStartPromise = undefined;
+  });
+  return desktopStartPromise;
+}
+
+function getGlobalSetting(section, fallback) {
+  const inspection = vscode.workspace.getConfiguration('fuguangPet').inspect(section);
+  const value = inspection?.globalValue;
+  return value === undefined ? fallback : value;
+}
+
+function isDesktopPetRunning() {
+  return new Promise((resolve) => {
+    const client = net.createConnection(PIPE_NAME);
+    let settled = false;
+    const finish = (running) => {
+      if (settled) return;
+      settled = true;
+      client.destroy();
+      resolve(running);
+    };
+    client.setTimeout(400, () => finish(false));
+    client.once('connect', () => finish(true));
+    client.once('error', () => finish(false));
+  });
+}
+
+async function startDesktopPetInternal(context, eventBus) {
+  if (await isDesktopPetRunning()) {
+    eventBus.command('show');
+    eventBus.emit('idle', '已复用桌面宠物');
+    return;
+  }
+
+  const configured = String(getGlobalSetting('desktopExecutable', '') || '').trim();
   const executable = configured || path.join(context.extensionPath, 'desktop', 'Fuguang.DesktopPet.exe');
   if (!fs.existsSync(executable)) {
     void vscode.window.showErrorMessage(`未找到桌面宠物程序：${executable}`);
@@ -452,6 +512,10 @@ async function startDesktopPet(context, eventBus) {
     detached: true,
     stdio: 'ignore',
     windowsHide: false
+  });
+  process.once('error', (error) => {
+    const detail = error instanceof Error ? error.message : String(error);
+    void vscode.window.showErrorMessage(`桌面宠物启动失败：${detail}`);
   });
   process.unref();
   setTimeout(() => {

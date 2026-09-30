@@ -584,6 +584,8 @@ public sealed class CompanionWindow : Window
             || !TryGetFrames(VisitorState.FrisbeeCatchRight, out _)
             || !TryGetFrames(VisitorState.FrisbeeLanding, out _)
             || !TryGetFrames(VisitorState.FrisbeeReturnLeft, out _)
+            || !TryGetFrames(VisitorState.FrisbeeCatchWithDiscRight, out _)
+            || !TryGetFrames(VisitorState.FrisbeeReturnWithDiscLeft, out _)
             || !TryGetFrames(VisitorState.FrisbeeMiss, out _)) return false;
 
         var power = Math.Clamp(drag.Length, 70, 620);
@@ -628,7 +630,7 @@ public sealed class CompanionWindow : Window
         if (IsBusy || !_profile.Supports(VisitorCapabilities.Feeding)
             || !TryGetFrames(VisitorState.TreatEating, out _)) return false;
 
-        int[] frameIntervalsMs = [180, 300, 1000, 1000, 300, 250];
+        int[] frameIntervalsMs = [150, 180, 240, 240, 180, 260];
         if (!PlayState(
             VisitorState.TreatEating,
             frameIntervalsMs.Sum(),
@@ -730,7 +732,7 @@ public sealed class CompanionWindow : Window
         if (_frisbeePhase == 2 && flightProgress >= 0.68)
         {
             _frisbeePhase = 3;
-            var catchState = _frisbeeInterceptLeft >= Left ? VisitorState.FrisbeeCatchRight : VisitorState.FrisbeeCatchLeft;
+            var catchState = _frisbeeInterceptLeft >= Left ? VisitorState.FrisbeeCatchWithDiscRight : VisitorState.FrisbeeCatchLeft;
             if (_frisbeeWillCatch)
             {
                 _frisbeeWindow?.Hide();
@@ -765,7 +767,10 @@ public sealed class CompanionWindow : Window
                 workArea.Left,
                 maximumLeft);
             _fetchTargetTop = _host.Top + (_host.ActualHeight > 0 ? _host.ActualHeight : _host.Height) - Height;
-            PlayState(_frisbeeReturnOnLeft ? VisitorState.FrisbeeReturnLeft : VisitorState.FrisbeeReturnRight, priority: 76, frameIntervalMs: 105);
+            PlayState(
+                _frisbeeReturnOnLeft ? VisitorState.FrisbeeReturnWithDiscLeft : VisitorState.FrisbeeReturnRight,
+                priority: 76,
+                frameIntervalMs: 105);
             return;
         }
 

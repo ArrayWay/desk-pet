@@ -32,6 +32,15 @@ public readonly record struct GrowthResult(
     bool SoftPenaltyApplied,
     string? Hint);
 
+public readonly record struct VisitorTitleProgress(
+    string CurrentTitle,
+    string NextTitle,
+    int CurrentAffection,
+    int CurrentInteractions,
+    string CurrentRequirement,
+    string NextRequirement,
+    IReadOnlyList<string> History);
+
 /// <summary>统一养成结算入口。窗口层只报事件，不直接散落加减数值。</summary>
 public static class GrowthService
 {
@@ -52,7 +61,7 @@ public static class GrowthService
             return new GrowthResult(0, 0, 0, 0, 0, false, null);
         }
 
-        var result = Resolve(action, settings.Stamina, settings.Satiety, success: true);
+        var result = ResolveMain(action);
         ApplyToMain(settings, result);
         return result;
     }
@@ -77,8 +86,53 @@ public static class GrowthService
         return "新朋友";
     }
 
+    public static VisitorTitleProgress GetVisitorTitleProgress(VisitorGrowthStats stats)
+    {
+        var current = ComputeVisitorTitle(stats);
+        var next = current switch
+        {
+            "新朋友" => "好伙伴",
+            "好伙伴" => "最佳搭档",
+            _ => "已达最高阶段"
+        };
+        var currentRequirement = current switch
+        {
+            "新朋友" => "尚未达到好伙伴：亲密度 25 或互动 8 次",
+            "好伙伴" => "已达到好伙伴：亲密度 25 或互动 8 次",
+            _ => "已达到最高阶段：亲密度 100 或互动 30 次"
+        };
+        var nextRequirement = current switch
+        {
+            "新朋友" => "亲密度 25 或互动 8 次",
+            "好伙伴" => "亲密度 100 或互动 30 次",
+            _ => "继续陪伴，称号历程已完成"
+        };
+        return new VisitorTitleProgress(
+            current,
+            next,
+            stats.Affection,
+            stats.Interactions,
+            currentRequirement,
+            nextRequirement,
+            new[] { "新朋友", "好伙伴", "最佳搭档" });
+    }
+
     public static bool IsSoftLow(int stamina, int satiety) =>
         stamina < SoftStaminaThreshold || satiety < SoftSatietyThreshold;
+
+    private static GrowthResult ResolveMain(GrowthAction action)
+    {
+        return action switch
+        {
+            GrowthAction.MainClick => new GrowthResult(+1, 0, 0, +1, 0, false, null),
+            GrowthAction.MainDoubleClick => new GrowthResult(+1, 0, 0, +1, 0, false, null),
+            GrowthAction.MainFocusComplete => new GrowthResult(+2, 0, 0, +2, 0, false, null),
+            GrowthAction.MainCommitCeremony => new GrowthResult(+2, 0, 0, +1, 0, false, null),
+            GrowthAction.MainIdleRecover => new GrowthResult(0, 0, 0, +1, 0, false, null),
+            GrowthAction.MainIdleDecay => new GrowthResult(0, 0, 0, -1, 0, false, null),
+            _ => new GrowthResult(0, 0, 0, 0, 0, false, null)
+        };
+    }
 
     private static GrowthResult Resolve(GrowthAction action, int stamina, int satiety, bool success)
     {
@@ -96,16 +150,6 @@ public static class GrowthService
 
         return action switch
         {
-            GrowthAction.MainClick => new GrowthResult(
-                Scale(+1, affectionMul), 0, -1, +1, 0, soft, hint),
-            GrowthAction.MainDoubleClick => new GrowthResult(
-                Scale(+1, affectionMul), -2, -1, +1, 0, soft, hint),
-            GrowthAction.MainFocusComplete => new GrowthResult(
-                Scale(+2, affectionMul), -5, -3, +2, 0, soft, hint),
-            GrowthAction.MainCommitCeremony => new GrowthResult(
-                Scale(+2, affectionMul), 0, 0, +1, 0, soft, hint),
-            GrowthAction.MainIdleRecover => new GrowthResult(0, +1, 0, +1, 0, false, null),
-            GrowthAction.MainIdleDecay => new GrowthResult(0, -1, 0, -1, 0, false, null),
             GrowthAction.VisitorPet => new GrowthResult(
                 Scale(+1, affectionMul), -2, -1, +1, 0, soft, hint),
             GrowthAction.VisitorFetch => new GrowthResult(

@@ -51,11 +51,16 @@ public enum VisitorState
     FrisbeeRunLeft,
     FrisbeeCatchRight,
     FrisbeeCatchLeft,
+    FrisbeeCatchWithDiscRight,
     FrisbeeLanding,
     FrisbeeReturnRight,
     FrisbeeReturnLeft,
+    FrisbeeReturnWithDiscLeft,
     FrisbeeMiss,
-    FrisbeeShowoffWithDisc
+    FrisbeeShowoffWithDisc,
+    MorningHighFive,
+    ShortDragComfort,
+    FocusComplete
 }
 
 public sealed class VisitorProfile
@@ -192,9 +197,9 @@ public sealed class VisitorProfile
         assetDirectoryName: "dog",
         baseImageName: "dog.png",
         ballImageName: "ball.png",
-        foodBowlImageName: null,
+        foodBowlImageName: "food-bowl.png",
         frisbeeImageName: null,
-        capabilities: VisitorCapabilities.All,
+        capabilities: VisitorCapabilities.All | VisitorCapabilities.Feeding,
         states: new Dictionary<VisitorState, string>
         {
             [VisitorState.Idle] = "idle",
@@ -214,7 +219,11 @@ public sealed class VisitorProfile
             [VisitorState.SniffingRight] = "sniffing-right",
             [VisitorState.Peeking] = "peeking",
             [VisitorState.CarryingBallRight] = "carrying-ball-right",
-            [VisitorState.CarryingBallLeft] = "carrying-ball-left"
+            [VisitorState.CarryingBallLeft] = "carrying-ball-left",
+            [VisitorState.FoodSniff] = "food-sniff",
+            [VisitorState.Eating] = "eating",
+            [VisitorState.LickingThanks] = "licking-thanks",
+            [VisitorState.TreatEating] = "treat-eating"
         });
 
     public static VisitorProfile TrainingDog { get; } = new(
@@ -245,11 +254,16 @@ public sealed class VisitorProfile
             [VisitorState.FrisbeeRunLeft] = "frisbee-run-left",
             [VisitorState.FrisbeeCatchRight] = "frisbee-catch-right",
             [VisitorState.FrisbeeCatchLeft] = "frisbee-catch-left",
+            [VisitorState.FrisbeeCatchWithDiscRight] = "frisbee-catch-with-disc-right",
             [VisitorState.FrisbeeLanding] = "frisbee-landing",
             [VisitorState.FrisbeeReturnRight] = "frisbee-return-right",
             [VisitorState.FrisbeeReturnLeft] = "frisbee-return-left",
+            [VisitorState.FrisbeeReturnWithDiscLeft] = "frisbee-return-with-disc-left",
             [VisitorState.FrisbeeMiss] = "frisbee-miss",
-            [VisitorState.FrisbeeShowoffWithDisc] = "frisbee-showoff-with-disc"
+            [VisitorState.FrisbeeShowoffWithDisc] = "frisbee-showoff-with-disc",
+            [VisitorState.MorningHighFive] = "morning-high-five-visitor",
+            [VisitorState.ShortDragComfort] = "short-drag-comfort-visitor",
+            [VisitorState.FocusComplete] = "focus-complete-visitor"
         });
 
     public static IReadOnlyCollection<VisitorProfile> Registered { get; } = Array.AsReadOnly([Dog, TrainingDog]);

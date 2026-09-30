@@ -2,7 +2,7 @@
     "name": "fuguang-orange-pet",
     "displayName": "浮光橙仔",
     "description": "在 VS Code 侧边栏陪伴编码的动画桌宠。",
-    "version": "1.2.1",
+    "version": "1.2.2",
     "publisher": "jackrain-local",
     "license": "UNLICENSED",
     "extensionKind": [
